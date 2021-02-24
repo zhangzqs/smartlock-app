@@ -3,33 +3,33 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:smartlock_app/common/global.dart';
 import 'package:smartlock_app/models/token.dart';
-import 'package:smartlock_app/widgets/card_reader.dart';
 import 'package:smartlock_app/widgets/time_picker.dart';
 
-class AddCardRoute extends StatefulWidget {
-  final String uid;
-  AddCardRoute({this.uid});
+class AddFaceRoute extends StatefulWidget {
+  final String token;
+  AddFaceRoute({this.token});
 
   @override
-  _AddCardRouteState createState() => _AddCardRouteState(uid ?? "");
+  _AddFaceRouteState createState() => _AddFaceRouteState(token ?? "");
 }
 
-class _AddCardRouteState extends State<AddCardRoute> {
+class _AddFaceRouteState extends State<AddFaceRoute> {
+  TextEditingController _tokenController = TextEditingController();
   TextEditingController _infoController = TextEditingController();
 
   GlobalKey _formKey = new GlobalKey<FormState>();
 
-  String uid;
+  String token;
   String info;
   DateTime beginTime = DateTime.now(); //默认有效期从当前时间开始
   DateTime endTime; //默认有效期永久
 
-  _AddCardRouteState(this.uid);
+  _AddFaceRouteState(this.token);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('门禁卡录入')),
+      appBar: AppBar(title: Text('口令密码录入')),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -38,10 +38,17 @@ class _AddCardRouteState extends State<AddCardRoute> {
           child: Column(
             children: <Widget>[
               Text('当前开设口令的管理员用户为: ${Global.userName}'),
-              CardReaderField((uid) {
-                print('当前UID：$uid');
-                this.uid = uid;
-              }),
+              TextFormField(
+                controller: _tokenController,
+                decoration: InputDecoration(
+                  labelText: '口令密码',
+                  hintText: '口令密码',
+                  prefixIcon: Icon(Icons.security),
+                ),
+                validator: (v) {
+                  return v.trim().isNotEmpty ? null : '口令不能为空';
+                },
+              ),
               TextFormField(
                 controller: _infoController,
                 decoration: InputDecoration(
@@ -74,9 +81,9 @@ class _AddCardRouteState extends State<AddCardRoute> {
                   child: ElevatedButton(
                     //color: Theme.of(context).primaryColor,
                     onPressed: () {
-                      var tokenModel = LockCard(
+                      var tokenModel = Token(
                         userName: Global.userName,
-                        uid: this.uid,
+                        token: _tokenController.text,
                         info: _infoController.text,
                         beginTime: beginTime,
                         endTime: endTime,

@@ -3,12 +3,12 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 //扫码UI模块
 
-class QRViewExample extends StatefulWidget {
+class QRScanRoute extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _QRScanRouteState();
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRScanRouteState extends State<QRScanRoute> {
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 

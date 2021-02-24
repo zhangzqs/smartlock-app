@@ -17,4 +17,8 @@ class Global {
     Global.userName = userName;
     await _prefs.setString('user_name', userName);
   }
+
+  static void logout() {
+    _prefs.clear();
+  }
 }

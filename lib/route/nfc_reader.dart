@@ -5,12 +5,12 @@ import 'package:nfc_manager/nfc_manager.dart';
 
 //门卡检测UI模块
 
-class RfidReaderRoute extends StatefulWidget {
+class NfcReaderRoute extends StatefulWidget {
   @override
-  _RfidReaderRouteState createState() => _RfidReaderRouteState();
+  _NfcReaderRouteState createState() => _NfcReaderRouteState();
 }
 
-class _RfidReaderRouteState extends State<RfidReaderRoute> {
+class _NfcReaderRouteState extends State<NfcReaderRoute> {
   void rfidDetect() async {
     bool isAvailable = await NfcManager.instance.isAvailable();
     print(isAvailable ? 'NFC is Available' : 'Not Available');

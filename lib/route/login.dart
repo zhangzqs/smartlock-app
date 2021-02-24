@@ -5,8 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:smartlock_app/common/lock_server.dart';
-import 'package:smartlock_app/register.dart';
-import 'common/util.dart';
+import 'package:smartlock_app/route/register.dart';
+import '../common/util.dart';
 
 class LoginRoute extends StatefulWidget {
   @override
@@ -123,7 +123,7 @@ class _LoginRouteState extends State<LoginRoute> {
   }
 
   void _onLogin() async {
-    showLoading(context, "正在登录");
+    //showLoading(context, "正在登录");
     await LockServer.login(
       _unameController.text,
       _pwdController.text,

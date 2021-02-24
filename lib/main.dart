@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:smartlock_app/register.dart';
-import 'package:smartlock_app/unlock_method/add_card.dart';
-import 'package:smartlock_app/unlock_method/add_token.dart';
+import 'package:smartlock_app/common/global.dart';
+import 'package:smartlock_app/main1.dart';
+import 'package:smartlock_app/route/register.dart';
+import 'package:smartlock_app/route/unlock_method/add_card.dart';
+import 'package:smartlock_app/route/unlock_method/add_token.dart';
 import 'package:smartlock_app/user_info_modify.dart';
 import 'package:smartlock_app/widgets/time_picker.dart';
-import 'login.dart';
+import 'route/login.dart';
 import 'nfc_test.dart';
 import 'drawer_test.dart';
 import 'route_test.dart';
-import 'route/rfid_reader.dart';
-import 'qr_scanner_test.dart';
+import 'route/nfc_reader.dart';
+import 'route/qr_scanner.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Global.init();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -88,12 +91,13 @@ class _HomePageState extends State<HomePage> {
           RouteStartButton(context, 'NFC', NfcTest()),
           RouteStartButton(context, 'Drawer', DrawerTestRoute()),
           RouteStartButton(context, 'RouteTest', RouteTest()),
-          RouteStartButton(context, 'NFC_Reader', RfidReaderRoute()),
-          RouteStartButton(context, 'QR', QRViewExample()),
-          RouteStartButton(context, 'AddCard', AddCardRoute(uid: '123')),
+          RouteStartButton(context, 'NFC_Reader', NfcReaderRoute()),
+          RouteStartButton(context, 'QR', QRScanRoute()),
+          RouteStartButton(context, 'AddCard', AddCardRoute()),
           RouteStartButton(context, 'AddToken', AddTokenRoute()),
           RouteStartButton(context, 'UserMOdifier', UserModifierRouter()),
           RouteStartButton(context, 'DatePicker', DateTimePickerRouter()),
+          RouteStartButton(context, 'StartPage', StartPage()),
         ],
       ),
     );

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:smartlock_app/route/rfid_reader.dart';
+import 'package:smartlock_app/route/nfc_reader.dart';
 
-class CardReader extends StatefulWidget {
-  final Null Function(String) onUidReceived;
-  String uid;
-  CardReader(this.onUidReceived, {this.uid});
+class CardReaderField extends StatefulWidget {
+  final Function(String) onUidReceived;
+  final String uid;
+  CardReaderField(this.onUidReceived, {this.uid});
   @override
-  _CardReaderState createState() => _CardReaderState();
+  _CardReaderFieldState createState() =>
+      _CardReaderFieldState(onUidReceived, uid);
 }
 
-class _CardReaderState extends State<CardReader> {
+class _CardReaderFieldState extends State<CardReaderField> {
   var controller = TextEditingController();
-  final Null Function(String) onUidReceived;
+  final Function(String) onUidReceived;
   String uid;
 
-  _CardReaderState(this.onUidReceived, this.uid);
+  _CardReaderFieldState(this.onUidReceived, this.uid);
 
   @override
   void initState() {
@@ -34,7 +35,7 @@ class _CardReaderState extends State<CardReader> {
             controller: controller,
             decoration: InputDecoration(
               labelText: "请录入门卡ID",
-              prefix: Icon(Icons.credit_card),
+              prefixIcon: Icon(Icons.credit_card),
             ),
           ),
           flex: 10,
@@ -46,11 +47,12 @@ class _CardReaderState extends State<CardReader> {
             onPressed: () async {
               var uid = await Navigator.push(context, MaterialPageRoute(
                 builder: (context) {
-                  return RfidReaderRoute();
+                  return NfcReaderRoute();
                 },
               ));
               controller.text = uid;
               onUidReceived(uid);
+              print('onUidReceived$uid');
             },
           ),
         )

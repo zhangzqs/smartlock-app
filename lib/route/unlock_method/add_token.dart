@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:smartlock_app/common/global.dart';
-import 'package:smartlock_app/common/util.dart';
+import 'package:smartlock_app/models/token.dart';
 import 'package:smartlock_app/widgets/time_picker.dart';
 
 class AddTokenRoute extends StatefulWidget {
-  String token;
+  final String token;
   AddTokenRoute({this.token});
 
   @override
@@ -78,7 +80,16 @@ class _AddTokenRouteState extends State<AddTokenRoute> {
                   constraints: BoxConstraints.expand(height: 55.0),
                   child: ElevatedButton(
                     //color: Theme.of(context).primaryColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      var tokenModel = Token(
+                        userName: Global.userName,
+                        token: _tokenController.text,
+                        info: _infoController.text,
+                        beginTime: beginTime,
+                        endTime: endTime,
+                      );
+                      print(tokenModel);
+                    },
                     child: Text(
                       '开设口令',
                       style: TextStyle(fontSize: 20),
